@@ -15,6 +15,7 @@ class _PlayersScreenState extends State<PlayersScreen> {
   List<String> _players = [];
 
   TextEditingController _playerController = new TextEditingController();
+  FocusNode _focusNode = FocusNode();
 
 
   @override
@@ -60,12 +61,17 @@ class _PlayersScreenState extends State<PlayersScreen> {
             Padding(
               padding: const EdgeInsets.all(28.0),
               child: Text(
-                'Ajouter des joueurs (min 2, max 5)',
+                'Ajouter des joueurs (min 3, max 5)',
               ),
             ),
             Padding(
               padding: const EdgeInsets.all(18.0),
               child: TextField(
+                textInputAction: TextInputAction.done,
+                focusNode: _focusNode,
+                onSubmitted: (s)  {
+                  _addPlayer(s);
+                },
                 controller: _playerController,
                 decoration: InputDecoration(
                   border: const OutlineInputBorder(),
@@ -76,30 +82,6 @@ class _PlayersScreenState extends State<PlayersScreen> {
             SizedBox(
               height: 10,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
-                IconButton(
-                  icon: Icon(Icons.add_circle),
-                  onPressed: () {
-                    _addPlayer();
-                  },
-                ),
-                IconButton(
-                  icon: Icon(Icons.two_mp),
-                  onPressed: () {
-                    _addPlayer();
-                  },
-                ),
-                IconButton(
-                  icon: Icon(Icons.three_mp),
-                  onPressed: () {
-                    _addPlayer();
-                  },
-                ),
-              ],
-            ),
-
             Column(
               children: _players.map(
                       (entry) {
@@ -124,6 +106,14 @@ class _PlayersScreenState extends State<PlayersScreen> {
       floatingActionButton: FloatingActionButton(
         mini: true,
         onPressed: () {
+          if (_players.length < 3) {
+            ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                    content: Text('Pas assez de joueurs')
+                )
+            );
+            return;
+          }
           Navigator.push(
             context,
             MaterialPageRoute(
@@ -137,22 +127,27 @@ class _PlayersScreenState extends State<PlayersScreen> {
     );
   }
 
-  _addPlayer() {
-    String newOne = this._playerController.value.text;
+  _addPlayer(String newOne) {
+    //String newOne = this._playerController.value.text;
     this._playerController.clear();
     if (_players.length > 5) {
       ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-              content: Text('A card that can be tapped')
+              content: Text('Trop de joueurs')
           )
       );
       return;
     }
     if (_players.contains(newOne)) {
-      // TODO message erreur
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+              content: Text('Ce nom est déjà là')
+          )
+      );
       return;
     }
     _players.add(newOne);
+    _focusNode.requestFocus();
     setState(() {_players;});
   }
 }
