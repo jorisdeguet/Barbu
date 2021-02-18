@@ -24,7 +24,7 @@ class _GameScreenState extends State<GameScreen> {
 
   List<String> _types = ['Pas de pli', 'Pas de coeur', 'Pas de dames', 'Barbu', 'Domino'];
   String _type = null;
-  
+
   @override
   void initState() {
     for(String p in widget.players) {
