@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sortedmap/sortedmap.dart';
 
 class GameScreen extends StatefulWidget {
   GameScreen({Key key, this.players}) : super(key: key);
@@ -11,10 +12,14 @@ class GameScreen extends StatefulWidget {
 
 class _GameScreenState extends State<GameScreen> {
 
-  Map<String, int> _players = Map();
+  SortedMap<String, int> _players = SortedMap(Ordering.byValue());
 
-  TextEditingController _playerController = new TextEditingController();
+  bool _biggy = false;
 
+  List<String> _types = ['Pas de pli', 'Pas de coeur', 'Pas de dames', 'Barbu', 'Domino'];
+  String _type = null;
+
+  
 
   @override
   void initState() {
@@ -60,57 +65,134 @@ class _GameScreenState extends State<GameScreen> {
                 child: Padding(
                   padding: const EdgeInsets.all(5.0),
                   child: Container(
-                    width: double.infinity,
-                    child: Column(
-                      children: _players.entries.map(
-                              (entry) {
-                            return Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(children: [
-                                Text(entry.key),
-                                Spacer(),
-                                Text(entry.value.toString()),
-                              ],),
-                            );
-                          }
-                      ).toList(),
-                    )
+                      width: double.infinity,
+                      child: Column(
+                        children: _players.entries.map(
+                                (entry) {
+                              return Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(children: [
+                                  Text(entry.key),
+                                  Spacer(),
+                                  Text(entry.value.toString()),
+                                ],),
+                              );
+                            }
+                        ).toList(),
+                      )
                   ),
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(18.0),
-              child: TextField(
-                controller: _playerController,
-                decoration: InputDecoration(
-                  border: const OutlineInputBorder(),
-                  hintText: 'Tape le nom du joueur',
-                ),
+            GestureDetector(
+              onTap: () {
+                setState(() {
+                  _biggy = !_biggy;
+                  _type = null;
+                });
+              },
+              child: AnimatedContainer(
+                duration: Duration(milliseconds: 1234),
+                color: Colors.blue,
+                width: _biggy ? 10 : 300,
+                height: 30,
               ),
             ),
+
             SizedBox(
               height: 10,
             ),
+            AnimatedOpacity(
+              // If the widget is visible, animate to 0.0 (invisible).
+              // If the widget is hidden, animate to 1.0 (fully visible).
+              opacity: _type == null ? 1.0 : 0.0,
+              duration: Duration(milliseconds: 500),
+              // The green box must be a child of the AnimatedOpacity widget.
+              child: Container(
 
-            Column(
-              children: _players.entries.map(
-                      (entry) {
-                    return GestureDetector(
-                      onTap: () {
-                        _players.remove(entry);
-                        setState(() {
-
-                        });
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(entry.key),
-                      ),
-                    );
-                  }
-              ).toList(),
+                color: Colors.red,
+                child: Wrap(
+                  children: _types.map(
+                          (type) {
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: ElevatedButton(
+                            onPressed: () {
+                              setState(() {
+                                _type = type;
+                              });
+                            },
+                            child: Text(type),
+                          ),
+                        );
+                      }
+                  ).toList(),
+                ),
+              ),
             ),
+
+
+            AnimatedOpacity(
+              // If the widget is visible, animate to 0.0 (invisible).
+              // If the widget is hidden, animate to 1.0 (fully visible).
+              opacity: _type == 'Domino' ? 1.0 : 0.0,
+              duration: Duration(milliseconds: 500),
+              // The green box must be a child of the AnimatedOpacity widget.
+              child: Container(
+
+                color: Colors.red,
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        Text(' + 100 :'),
+                        Wrap(
+                          children: _players.entries.map(
+                                  (player) {
+                                return Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: ElevatedButton(
+                                    onPressed: () {
+                                      setState(() {
+
+                                      });
+                                    },
+                                    child: Text(player.key),
+                                  ),
+                                );
+                              }
+                          ).toList(),
+                        )
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Text(' + 60 :'),
+                        Wrap(
+                          children: _players.entries.map(
+                                  (player) {
+                                return Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: ElevatedButton(
+                                    onPressed: () {
+                                      setState(() {
+
+                                      });
+                                    },
+                                    child: Text(player.key),
+                                  ),
+                                );
+                              }
+                          ).toList(),
+                        )
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+
+
           ],
         ),
       ),
