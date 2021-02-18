@@ -1,5 +1,11 @@
+import 'package:bardu/widgets/coeurs.dart';
+import 'package:bardu/widgets/dames.dart';
+import 'package:bardu/widgets/domino.dart';
+import 'package:bardu/widgets/plis.dart';
 import 'package:flutter/material.dart';
 import 'package:sortedmap/sortedmap.dart';
+
+import 'widgets/barbu.dart';
 
 class GameScreen extends StatefulWidget {
   GameScreen({Key key, this.players}) : super(key: key);
@@ -14,13 +20,11 @@ class _GameScreenState extends State<GameScreen> {
 
   SortedMap<String, int> _players = SortedMap(Ordering.byValue());
 
-  bool _biggy = false;
+  Map<String, int> delta = null;
 
   List<String> _types = ['Pas de pli', 'Pas de coeur', 'Pas de dames', 'Barbu', 'Domino'];
   String _type = null;
-
   
-
   @override
   void initState() {
     for(String p in widget.players) {
@@ -84,118 +88,106 @@ class _GameScreenState extends State<GameScreen> {
                 ),
               ),
             ),
-            GestureDetector(
-              onTap: () {
-                setState(() {
-                  _biggy = !_biggy;
-                  _type = null;
-                });
-              },
-              child: AnimatedContainer(
-                duration: Duration(milliseconds: 1234),
-                color: Colors.blue,
-                width: _biggy ? 10 : 300,
-                height: 30,
-              ),
-            ),
 
             SizedBox(
-              height: 10,
-            ),
-            AnimatedOpacity(
-              // If the widget is visible, animate to 0.0 (invisible).
-              // If the widget is hidden, animate to 1.0 (fully visible).
-              opacity: _type == null ? 1.0 : 0.0,
-              duration: Duration(milliseconds: 500),
-              // The green box must be a child of the AnimatedOpacity widget.
-              child: Container(
-
-                color: Colors.red,
-                child: Wrap(
-                  children: _types.map(
-                          (type) {
-                        return Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: ElevatedButton(
-                            onPressed: () {
-                              setState(() {
-                                _type = type;
-                              });
-                            },
-                            child: Text(type),
-                          ),
-                        );
-                      }
-                  ).toList(),
-                ),
-              ),
+              height: 25,
             ),
 
-
-            AnimatedOpacity(
-              // If the widget is visible, animate to 0.0 (invisible).
-              // If the widget is hidden, animate to 1.0 (fully visible).
-              opacity: _type == 'Domino' ? 1.0 : 0.0,
-              duration: Duration(milliseconds: 500),
-              // The green box must be a child of the AnimatedOpacity widget.
-              child: Container(
-
-                color: Colors.red,
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        Text(' + 100 :'),
-                        Wrap(
-                          children: _players.entries.map(
-                                  (player) {
-                                return Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: ElevatedButton(
-                                    onPressed: () {
-                                      setState(() {
-
-                                      });
-                                    },
-                                    child: Text(player.key),
-                                  ),
-                                );
-                              }
-                          ).toList(),
-                        )
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Text(' + 60 :'),
-                        Wrap(
-                          children: _players.entries.map(
-                                  (player) {
-                                return Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: ElevatedButton(
-                                    onPressed: () {
-                                      setState(() {
-
-                                      });
-                                    },
-                                    child: Text(player.key),
-                                  ),
-                                );
-                              }
-                          ).toList(),
-                        )
-                      ],
-                    ),
-                  ],
-                ),
-              ),
+            AnimatedSwitcher(
+                duration: const Duration(seconds: 1),
+                child: _type == null ? selecteur():
+                _widget(),
             ),
-
-
           ],
         ),
       ),
+    );
+  }
+
+  _widget() {
+    Widget w = Text('TODO');
+    if (_type == 'Domino')
+      w = Domino(players: widget.players,onSave: _update);
+    if (_type == 'Barbu')
+      w = Barbu(players: widget.players,onSave: _update);
+    if (_type == 'Pas de pli')
+      w = Plis(players: widget.players,onSave: _update);
+    if (_type == 'Pas de dames')
+      w = Dames(players: widget.players,onSave: _update);
+    if (_type == 'Pas de coeur')
+      w = Coeurs(players: widget.players,onSave: _update);
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+            primary: Colors.red, // background
+              onPrimary: Colors.white, // foreground
+            ),
+            onPressed: () {
+              this._type = null;
+              setState(() {});
+            },
+            child: Text('Annule')
+            ),
+            ElevatedButton.icon(
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.green, // background
+                  onPrimary: Colors.white, // foreground
+                ),
+                onPressed: delta == null ? null : () {
+                  this._confirmUpdate();
+                },
+                icon: Icon(Icons.arrow_upward_outlined),
+                label: Text('Sauve')
+            ),
+          ],
+        ),
+        SizedBox(height: 25,),
+        Card(
+          color: Colors.black87,
+          child: w,
+        ),
+      ],
+    );
+
+  }
+
+  _confirmUpdate() {
+    for (var entry in delta.entries) {
+      this._players[entry.key] += entry.value;
+    }
+    this.delta = null;
+    this._type = null;
+    setState(() {});
+  }
+
+  _update(Map<String, int> delta) {
+    print('TODO ' + delta.toString());
+    setState(() {
+      this.delta = delta;
+    });
+  }
+
+  selecteur() {
+    return Wrap(
+        children: _types.map(
+                (type) {
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      _type = type;
+                    });
+                  },
+                  child: Text(type),
+                ),
+              );
+            }
+        ).toList()
     );
   }
 }
