@@ -13,6 +13,10 @@
 
   "DIALOG_2CARDS" : "Il faut retirer le 7 de ♠ et le 7 de ♣ pour avoir un total de 30 cartes.",
 
+  "GAME_ON" : "En jeu",
+  "CANCEL" : "Annule",
+  "SAVE" : "Sauve",
+
   "NO_HEARTS" : "Pas de coeurs",
   "NO_PLIS" : "Pas de plis",
   "NO_LADIES" : "Pas de dames",

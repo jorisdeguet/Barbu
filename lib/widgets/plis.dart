@@ -1,3 +1,4 @@
+import 'package:bardu/i18n/intl_localization.dart';
 import 'package:bardu/widgets/count.dart';
 import 'package:flutter/material.dart';
 
@@ -44,8 +45,12 @@ class _PlisCoeursState extends State<PlisCoeurs> {
         children: [
           Center(child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text(widget.title + " " + currentTotal().toString() + " / " + widget.maxItems.toString()),
-          ),),
+            child: Text(
+                Locs.of(context).trans(widget.title) +
+                    " " + currentTotal().toString() +
+                    " / " + widget.maxItems.toString()),
+            ),
+          ),
           Column(
             children: widget.players.map(
                     (player) {
@@ -85,7 +90,6 @@ class _PlisCoeursState extends State<PlisCoeurs> {
     for (String player in count.keys) {
       res += count[player];
     }
-    print("current total " + res.toString());
     return res;
   }
 
@@ -94,7 +98,6 @@ class _PlisCoeursState extends State<PlisCoeurs> {
     for (String player in count.keys) {
       if (player != p) res += count[player];
     }
-    print("current total " + res.toString());
     return res;
   }
 
@@ -102,15 +105,10 @@ class _PlisCoeursState extends State<PlisCoeurs> {
     if (currentTotal() == widget.maxItems) {
       Map<String, int> res = Map();
       for (String player in widget.players) {
-        res.putIfAbsent(player, () => count[player] * poidsPli() * -1);
+        res.putIfAbsent(player, () => count[player] * widget.itemValue * -1);
       }
       widget.onSave(res);
     }
   }
 
-  int poidsPli() {
-    if (widget.players.length == 3) return 4;
-    if (widget.players.length == 4) return 5;
-    return 7;
-  }
 }

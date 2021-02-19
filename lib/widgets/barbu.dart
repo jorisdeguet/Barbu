@@ -1,3 +1,4 @@
+import 'package:bardu/i18n/intl_localization.dart';
 import 'package:flutter/material.dart';
 
 
@@ -27,7 +28,7 @@ class _BarbuState extends State<Barbu> {
         Center(
           child: Padding(
             padding: const EdgeInsets.all(18.0),
-            child: Text('Barbu'),
+            child: Text(Locs.of(context).trans('BARBU')),
           ),
         ),
         Padding(

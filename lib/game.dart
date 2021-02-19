@@ -21,8 +21,8 @@ class _GameScreenState extends State<GameScreen> {
   Map<String, int> delta = null;
 
   List<String> _types = [
-    "NO_HEARTS",
     "NO_PLIS",
+    "NO_HEARTS",
     "NO_LADIES",
     "BARBU",
     "DOMINO"];
@@ -33,7 +33,7 @@ class _GameScreenState extends State<GameScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Partie"),
+        title: Text(Locs.of(context).trans("GAME_ON")),
         actions: <Widget>[
           Padding(
             padding: EdgeInsets.only(right: 20.0),
@@ -57,30 +57,24 @@ class _GameScreenState extends State<GameScreen> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             Card(
-              child: InkWell(
-                splashColor: Colors.blue.withAlpha(30),
-                onTap: () {
-                  print('Card tapped.');
-                },
-                child: Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: Container(
-                      width: double.infinity,
-                      child: Column(
-                        children: consolidated().entries.map(
-                                (entry) {
-                              return Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Row(children: [
-                                  Text(entry.key),
-                                  Spacer(),
-                                  Text(entry.value.toString()),
-                                ],),
-                              );
-                            }
-                        ).toList(),
-                      )
-                  ),
+              child: Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: Container(
+                    width: double.infinity,
+                    child: Column(
+                      children: consolidated().entries.map(
+                              (entry) {
+                            return Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(children: [
+                                Text(entry.key),
+                                Spacer(),
+                                Text(entry.value.toString()),
+                              ],),
+                            );
+                          }
+                      ).toList(),
+                    )
                 ),
               ),
             ),
@@ -124,17 +118,17 @@ class _GameScreenState extends State<GameScreen> {
 
   _widget() {
     Widget w = Text('TODO');
-    if (_type == 'Domino')
+    if (_type == 'DOMINO')
       w = Domino(players: widget.players,onSave: _update);
-    if (_type == 'Barbu')
+    if (_type == 'BARBU')
       w = Barbu(players: widget.players,onSave: _update);
-    if (_type == 'Pas de dames')
+    if (_type == 'NO_LADIES')
       w = Dames(players: widget.players,onSave: _update);
-    if (_type == 'Pas de coeur')
-      w = PlisCoeurs(title: 'Coeurs', maxItems: 8, itemValue: 5,
+    if (_type == 'NO_HEARTS')
+      w = PlisCoeurs(title: 'NO_HEARTS', maxItems: 8, itemValue: 5,
           players: widget.players,onSave: _update);
-    if (_type == 'Pas de pli')
-      w = PlisCoeurs(title: 'Plis',
+    if (_type == 'NO_PLIS')
+      w = PlisCoeurs(title: 'NO_PLIS',
           maxItems: widget.players.length == 3 ? 10 :
             widget.players.length == 4 ? 8 : 6,
           itemValue: widget.players.length == 3 ? 4 :
@@ -155,7 +149,7 @@ class _GameScreenState extends State<GameScreen> {
                     this._type = null;
                     setState(() {});
                   },
-                  child: Text('Annule')
+                  child: Text(Locs.of(context).trans("CANCEL"))
               ),
               ElevatedButton.icon(
                   style: ElevatedButton.styleFrom(
@@ -166,7 +160,7 @@ class _GameScreenState extends State<GameScreen> {
                     this._confirmUpdate();
                   },
                   icon: Icon(Icons.arrow_upward_outlined),
-                  label: Text('Sauve')
+                  label: Text(Locs.of(context).trans("SAVE"))
               ),
             ],
           ),
@@ -206,7 +200,6 @@ class _GameScreenState extends State<GameScreen> {
   }
 
   _update(Map<String, int> delta) {
-    print('TODO ' + delta.toString());
     setState(() {
       this.delta = delta;
     });

@@ -1,3 +1,4 @@
+import 'package:bardu/i18n/intl_localization.dart';
 import 'package:flutter/material.dart';
 
 
@@ -40,7 +41,7 @@ class _DamesState extends State<Dames> {
         children: [
           Center(child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text("Dames"),
+            child: Text(Locs.of(context).trans("NO_LADIES")),
           ),),
           Column(
             children: widget.players.map(

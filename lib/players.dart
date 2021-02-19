@@ -48,7 +48,7 @@ class _PlayersScreenState extends State<PlayersScreen> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.all(28.0),
+              padding: const EdgeInsets.fromLTRB(28.0,30,28,10),
               child: Text(
                 Locs.of(context).trans("ADD_PLAYERS"),
               ),
