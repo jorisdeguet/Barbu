@@ -52,20 +52,26 @@ class _DamesState extends State<Dames> {
                       Expanded(
                         flex:4,
                           child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: colors.map(
-                                (color) => Padding(
-                              padding: const EdgeInsets.all(1.0),
-                              child: ElevatedButton(
-                                child: Text(color),
-                                onPressed: isTaken(color, player) ? null : () {
-                                  map[player].add(color);
-                                  setState(() {});
-                                  answer();
-                                },
-                              ),
-                            )
-                        ).toList(),
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: colors.map(
+                                    (color) => Padding(
+                                  padding: const EdgeInsets.all(1.0),
+                                  child: Ink(
+                                    decoration: ShapeDecoration(
+                                      color: isTaken(color, player)? Colors.transparent : Colors.indigo,
+                                      shape: CircleBorder(),
+                                    ),
+                                    child: IconButton(
+                                      icon: Text(color),
+                                      onPressed: isTaken(color, player) ? null : () {
+                                        map[player].add(color);
+                                        setState(() {});
+                                        answer();
+                                      },
+                                    ),
+                                  ),
+                                )
+                            ).toList(),
                       )),
                     ],
                   );

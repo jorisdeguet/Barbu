@@ -41,7 +41,7 @@ class _PlayersScreenState extends State<PlayersScreen> {
           ),
         ],
       ),
-      body: Center(
+      body: SingleChildScrollView(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
         child: Column(
@@ -71,19 +71,18 @@ class _PlayersScreenState extends State<PlayersScreen> {
             SizedBox(
               height: 10,
             ),
-            Column(
+            Wrap(
               children: _players.map(
                       (entry) {
-                    return GestureDetector(
-                      onTap: () {
-                        _players.remove(entry);
-                        setState(() {
-
-                        });
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(entry),
+                    return Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: ElevatedButton.icon(
+                          onPressed: () {
+                            _players.remove(entry);
+                            setState(() {});
+                          },
+                          icon: Icon(Icons.delete),
+                          label: Text(entry)
                       ),
                     );
                   }
