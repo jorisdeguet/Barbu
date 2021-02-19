@@ -1,6 +1,8 @@
 import 'package:bardu/players.dart';
 import 'package:flutter/material.dart';
 
+// TODO https://www.youtube.com/watch?v=futE-2pAE30
+
 void main() {
   runApp(MyApp());
 }
