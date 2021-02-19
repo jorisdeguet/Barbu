@@ -130,7 +130,7 @@ class _PlayersScreenState extends State<PlayersScreen> {
   _addPlayer(String newOne) {
     //String newOne = this._playerController.value.text;
     this._playerController.clear();
-    if (_players.length > 5) {
+    if (_players.length > 4) {
       ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
               content: Text('Trop de joueurs')
