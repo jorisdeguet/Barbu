@@ -1,4 +1,3 @@
-import 'package:bardu/widgets/coeurs.dart';
 import 'package:bardu/widgets/dames.dart';
 import 'package:bardu/widgets/domino.dart';
 import 'package:bardu/widgets/plis.dart';
@@ -96,8 +95,14 @@ class _GameScreenState extends State<GameScreen> {
                     return Card(
                       child: ListTile(
                         title: Text(elt.type),
-                        subtitle: Text(toString(elt.scores)),
-                        trailing: Icon(Icons.delete),
+                        subtitle: Text(toSt(elt.scores)),
+                        trailing: GestureDetector(
+                          child: Icon(Icons.delete),
+                          onTap: () {
+                            this.history.remove(elt);
+                            setState(() {});
+                          },
+                        ),
                       ),
                     );
                   }
@@ -167,7 +172,6 @@ class _GameScreenState extends State<GameScreen> {
         ],
       ),
     );
-
   }
 
   Map<String, int> consolidated() {
@@ -202,7 +206,7 @@ class _GameScreenState extends State<GameScreen> {
     });
   }
 
-  selecteur() {
+  Widget selecteur() {
     return Wrap(
       children: _types.map(
             (type) {
@@ -220,6 +224,16 @@ class _GameScreenState extends State<GameScreen> {
         }
       ).toList()
     );
+  }
+
+  String toSt(Map<String, int> scores) {
+    String res = '';
+    for (String player in widget.players) {
+      if (scores[player] != null && scores[player] != 0) {
+        res += player + ': '+scores[player].toString() + '  ';
+      }
+    }
+    return res;
   }
 }
 
