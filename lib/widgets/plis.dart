@@ -20,6 +20,19 @@ class _PlisState extends State<Plis> {
 
   String loser = null;
 
+  int maxTotal = 8;
+
+  Map<String, int> count = Map();
+
+  @override
+  void initState() {
+    if (widget.players.length == 3) maxTotal = 10;
+    if (widget.players.length == 5) maxTotal = 6;
+    for (String player in widget.players) {
+      count.putIfAbsent(player, () => 0);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
 
@@ -40,9 +53,13 @@ class _PlisState extends State<Plis> {
                       Spacer(),
                       Container(
                           child: CounterView(
-                            initNumber: 0,
+                            initNumber: count[player],
+                            maxNumber: maxForPlayer(player),
                             counterCallback: (val) {
                               print(val.toString() + ' ' + player);
+                              setState(() {
+                                count[player] = val;
+                              });
                             },
                           ),
                       ),
@@ -56,9 +73,16 @@ class _PlisState extends State<Plis> {
     );
   }
 
-  List<int> range(List<String> players)  {
-    if (players.length == 5) return [1,2,3,4,5];
-    if (players.length == 4) return [1,2,3,4,5,6,7,8];
-    return [1,2,3,4,5,6,7,8,9,10];
+  int maxForPlayer(playser) {
+    return this.maxTotal - currentTotal();
+  }
+
+  int currentTotal() {
+    int res = 0 ;
+    for (String player in count.keys) {
+      res += count[player];
+    }
+    print("current total " + res.toString());
+    return res;
   }
 }

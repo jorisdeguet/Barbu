@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 
 class CounterView extends StatefulWidget {
   final int initNumber;
+  final int maxNumber;
   final Function(int) counterCallback;
 
-  CounterView({this.initNumber, this.counterCallback});
+  CounterView({this.initNumber, this.maxNumber, this.counterCallback});
   @override
   _CounterViewState createState() => _CounterViewState();
 }
@@ -39,8 +40,10 @@ class _CounterViewState extends State<CounterView> {
 
   void _increment() {
     setState(() {
-      _currentCount++;
-      _counterCallback(_currentCount);
+      if (_currentCount < widget.maxNumber) {
+        _currentCount++;
+        _counterCallback(_currentCount);
+      }
     });
   }
 
