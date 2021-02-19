@@ -1,0 +1,21 @@
+{
+
+  "APP_TITLE" : "Barbu compteur",
+  "ADD_PLAYERS" : "Ajouter des joueurs (min 3, max 5)",
+  "TYPE_PLAYER_NAME" : "Tape le nom du joueur",
+
+  "ERROR_NOT_ENOUGH" : "Pas assez de joueurs",
+  "ERROR_TOO_MANY" : "Trop de joueurs",
+
+  "ERROR_EMPTY" : "Entre un nom",
+  "ERROR_TOO_LONG" : "Ce nom est trop long",
+  "ERROR_EXISTING" : "Ce nom est déjà là",
+
+  "DIALOG_2CARDS" : "Il faut retirer le 7 de ♠ et le 7 de ♣ pour avoir un total de 30 cartes.",
+
+  "NO_HEARTS" : "Pas de coeurs",
+  "NO_PLIS" : "Pas de plis",
+  "NO_LADIES" : "Pas de dames",
+  "BARBU" : "Barbu",
+  "DOMINO" : "Domino"
+}

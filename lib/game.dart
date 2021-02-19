@@ -1,3 +1,4 @@
+import 'package:bardu/i18n/intl_localization.dart';
 import 'package:bardu/widgets/dames.dart';
 import 'package:bardu/widgets/domino.dart';
 import 'package:bardu/widgets/plis.dart';
@@ -19,7 +20,12 @@ class _GameScreenState extends State<GameScreen> {
   List<GamePart> history = [];
   Map<String, int> delta = null;
 
-  List<String> _types = ['Pas de pli', 'Pas de coeur', 'Pas de dames', 'Barbu', 'Domino'];
+  List<String> _types = [
+    "NO_HEARTS",
+    "NO_PLIS",
+    "NO_LADIES",
+    "BARBU",
+    "DOMINO"];
   String _type = null;
 
   @override
@@ -94,7 +100,7 @@ class _GameScreenState extends State<GameScreen> {
                       (elt) {
                     return Card(
                       child: ListTile(
-                        title: Text(elt.type),
+                        title: Text(Locs.of(context).trans(elt.type)),
                         subtitle: Text(toSt(elt.scores)),
                         trailing: GestureDetector(
                           child: Icon(Icons.delete),
@@ -218,7 +224,7 @@ class _GameScreenState extends State<GameScreen> {
                   _type = type;
                 });
               },
-              child: Text(type),
+              child: Text(Locs.of(context).trans(type)),
             ),
           );
         }

@@ -1,4 +1,5 @@
 import 'package:bardu/game.dart';
+import 'package:bardu/i18n/intl_localization.dart';
 import 'package:flutter/material.dart';
 
 class PlayersScreen extends StatefulWidget {
@@ -23,7 +24,7 @@ class _PlayersScreenState extends State<PlayersScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Compte Barbu"),
+        title: Text(Locs.of(context).trans("APP_TITLE")),
         actions: <Widget>[
           Padding(
               padding: EdgeInsets.only(right: 20.0),
@@ -49,7 +50,7 @@ class _PlayersScreenState extends State<PlayersScreen> {
             Padding(
               padding: const EdgeInsets.all(28.0),
               child: Text(
-                'Ajouter des joueurs (min 3, max 5)',
+                Locs.of(context).trans("ADD_PLAYERS"),
               ),
             ),
             Padding(
@@ -63,7 +64,7 @@ class _PlayersScreenState extends State<PlayersScreen> {
                 controller: _playerController,
                 decoration: InputDecoration(
                   border: const OutlineInputBorder(),
-                  hintText: 'Tape le nom du joueur',
+                  hintText: Locs.of(context).trans("TYPE_PLAYER_NAME"),
                 ),
               ),
             ),
@@ -97,17 +98,21 @@ class _PlayersScreenState extends State<PlayersScreen> {
           if (_players.length < 3) {
             ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                    content: Text('Pas assez de joueurs')
+                    content: Text(Locs.of(context).trans("ERROR_NOT_ENOUGH"))
                 )
             );
             return;
           }
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => GameScreen(players: this._players),
-            ),
-          );
+          if (_players.length != 4) {
+            _show2CardsDialog();
+          } else {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => GameScreen(players: this._players),
+              ),
+            );
+          }
           // Add your onPressed code here!
         },
         child: Icon(Icons.arrow_right),
@@ -121,7 +126,7 @@ class _PlayersScreenState extends State<PlayersScreen> {
     if (newOne.trim().length == 0) {
       ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-              content: Text('Entre un nom')
+              content: Text(Locs.of(context).trans("ERROR_EMPTY"))
           )
       );
       return;
@@ -129,7 +134,7 @@ class _PlayersScreenState extends State<PlayersScreen> {
     if (newOne.trim().length > 50) {
       ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-              content: Text('Ce nom est trop long')
+              content: Text(Locs.of(context).trans("ERROR_TOO_LONG"))
           )
       );
       return;
@@ -137,7 +142,7 @@ class _PlayersScreenState extends State<PlayersScreen> {
     if (_players.length > 4) {
       ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-              content: Text('Trop de joueurs')
+              content: Text(Locs.of(context).trans("ERROR_TOO_MANY"))
           )
       );
       return;
@@ -145,7 +150,7 @@ class _PlayersScreenState extends State<PlayersScreen> {
     if (_players.contains(newOne.trim())) {
       ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-              content: Text('Ce nom est déjà là')
+              content: Text(Locs.of(context).trans("ERROR_EXISTING"))
           )
       );
       return;
@@ -154,4 +159,38 @@ class _PlayersScreenState extends State<PlayersScreen> {
     _focusNode.requestFocus();
     setState(() {_players;});
   }
+
+  Future<void> _show2CardsDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: true, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Ouch'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text(Locs.of(context).trans("DIALOG_2CARDS")),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text('Ok'),
+              onPressed: () {
+                Navigator.of(context).pop();
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => GameScreen(players: this._players),
+                  ),
+                );
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
 }
