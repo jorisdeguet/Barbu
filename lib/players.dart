@@ -29,18 +29,6 @@ class _PlayersScreenState extends State<PlayersScreen> {
               padding: EdgeInsets.only(right: 20.0),
               child: GestureDetector(
                 onTap: () {
-
-                },
-                child: Icon(
-                  Icons.settings,
-                  size: 26.0,
-                ),
-              )
-          ),
-          Padding(
-              padding: EdgeInsets.only(right: 20.0),
-              child: GestureDetector(
-                onTap: () {
                   setState(() {
                     _players.clear();
                   });
@@ -130,6 +118,22 @@ class _PlayersScreenState extends State<PlayersScreen> {
   _addPlayer(String newOne) {
     //String newOne = this._playerController.value.text;
     this._playerController.clear();
+    if (newOne.trim().length == 0) {
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+              content: Text('Entre un nom')
+          )
+      );
+      return;
+    }
+    if (newOne.trim().length > 50) {
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+              content: Text('Ce nom est trop long')
+          )
+      );
+      return;
+    }
     if (_players.length > 4) {
       ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -138,7 +142,7 @@ class _PlayersScreenState extends State<PlayersScreen> {
       );
       return;
     }
-    if (_players.contains(newOne)) {
+    if (_players.contains(newOne.trim())) {
       ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
               content: Text('Ce nom est déjà là')
@@ -146,7 +150,7 @@ class _PlayersScreenState extends State<PlayersScreen> {
       );
       return;
     }
-    _players.add(newOne);
+    _players.add(newOne.trim());
     _focusNode.requestFocus();
     setState(() {_players;});
   }

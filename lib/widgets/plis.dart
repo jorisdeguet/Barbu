@@ -2,32 +2,34 @@ import 'package:bardu/widgets/count.dart';
 import 'package:flutter/material.dart';
 
 
-class Plis extends StatefulWidget {
+class PlisCoeurs extends StatefulWidget {
   final List<String> players;
   final Function(Map<String,int>) onSave;
+  final String title;
+  final int maxItems;
+  final int itemValue;
 
-  Plis({
+  PlisCoeurs({
     Key key,
+    @required this.title,
     @required this.players,
-    @required this.onSave
+    @required this.onSave,
+    this.maxItems,
+    this.itemValue
   }) : super(key: key);
 
   @override
-  _PlisState createState() => _PlisState();
+  _PlisCoeursState createState() => _PlisCoeursState();
 }
 
-class _PlisState extends State<Plis> {
+class _PlisCoeursState extends State<PlisCoeurs> {
 
   String loser = null;
-
-  int maxTotal = 8;
 
   Map<String, int> count = Map();
 
   @override
   void initState() {
-    if (widget.players.length == 3) maxTotal = 10;
-    if (widget.players.length == 5) maxTotal = 6;
     for (String player in widget.players) {
       count.putIfAbsent(player, () => 0);
     }
@@ -42,7 +44,7 @@ class _PlisState extends State<Plis> {
         children: [
           Center(child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text("Plis"),
+            child: Text(widget.title + " " + currentTotal().toString() + " / " + widget.maxItems.toString()),
           ),),
           Column(
             children: widget.players.map(
@@ -60,6 +62,7 @@ class _PlisState extends State<Plis> {
                               setState(() {
                                 count[player] = val;
                               });
+                              answer();
                             },
                           ),
                       ),
@@ -73,8 +76,8 @@ class _PlisState extends State<Plis> {
     );
   }
 
-  int maxForPlayer(playser) {
-    return this.maxTotal - currentTotal();
+  int maxForPlayer(player) {
+    return widget.maxItems - currentTotalOther(player);
   }
 
   int currentTotal() {
@@ -84,5 +87,30 @@ class _PlisState extends State<Plis> {
     }
     print("current total " + res.toString());
     return res;
+  }
+
+  int currentTotalOther(String p) {
+    int res = 0 ;
+    for (String player in count.keys) {
+      if (player != p) res += count[player];
+    }
+    print("current total " + res.toString());
+    return res;
+  }
+
+  void answer() {
+    if (currentTotal() == widget.maxItems) {
+      Map<String, int> res = Map();
+      for (String player in widget.players) {
+        res.putIfAbsent(player, () => count[player] * poidsPli() * -1);
+      }
+      widget.onSave(res);
+    }
+  }
+
+  int poidsPli() {
+    if (widget.players.length == 3) return 4;
+    if (widget.players.length == 4) return 5;
+    return 7;
   }
 }
