@@ -1,25 +1,25 @@
 {
 
-  "APP_TITLE" : "Barbu compteur",
-  "ADD_PLAYERS" : "Ajouter des joueurs (min 3, max 5)",
-  "TYPE_PLAYER_NAME" : "Tape le nom du joueur",
+  "APP_TITLE" : "Barbu score keeper",
+  "ADD_PLAYERS" : "Add players (between 3 and 5)",
+  "TYPE_PLAYER_NAME" : "Enter player's name",
 
-  "ERROR_NOT_ENOUGH" : "Pas assez de joueurs",
-  "ERROR_TOO_MANY" : "Trop de joueurs",
+  "ERROR_NOT_ENOUGH" : "Noot enough players",
+  "ERROR_TOO_MANY" : "Too many players",
 
-  "ERROR_EMPTY" : "Entre un nom",
-  "ERROR_TOO_LONG" : "Ce nom est trop long",
-  "ERROR_EXISTING" : "Ce nom est déjà là",
+  "ERROR_EMPTY" : "Enter player's name",
+  "ERROR_TOO_LONG" : "Name is too long",
+  "ERROR_EXISTING" : "Name is already used",
 
-  "DIALOG_2CARDS" : "Il faut retirer le 7 de ♠ et le 7 de ♣ pour avoir un total de 30 cartes.",
+  "DIALOG_2CARDS" : "Discard the 7th of ♠ and ♣ so you end up with 30 cards",
 
-  "GAME_ON" : "En jeu",
-  "CANCEL" : "Annule",
-  "SAVE" : "Sauve",
+  "GAME_ON" : "Playing",
+  "CANCEL" : "Cancel",
+  "SAVE" : "Save",
 
-  "NO_HEARTS" : "Pas de coeurs",
-  "NO_PLIS" : "Pas de plis",
-  "NO_LADIES" : "Pas de dames",
+  "NO_HEARTS" : "No hearts",
+  "NO_PLIS" : "No tricks",
+  "NO_LADIES" : "No queens",
   "BARBU" : "Barbu",
   "DOMINO" : "Domino"
 }
