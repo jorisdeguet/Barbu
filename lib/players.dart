@@ -1,5 +1,5 @@
-import 'package:bardu/game.dart';
-import 'package:bardu/i18n/intl_localization.dart';
+import 'package:barbu/game.dart';
+import 'package:barbu/i18n/intl_localization.dart';
 import 'package:flutter/material.dart';
 
 class PlayersScreen extends StatefulWidget {

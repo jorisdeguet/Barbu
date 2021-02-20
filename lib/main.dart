@@ -1,5 +1,5 @@
-import 'package:bardu/i18n/intl_delegate.dart';
-import 'package:bardu/players.dart';
+import 'package:barbu/i18n/intl_delegate.dart';
+import 'package:barbu/players.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter/material.dart';
 

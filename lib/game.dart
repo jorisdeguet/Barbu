@@ -1,7 +1,7 @@
-import 'package:bardu/i18n/intl_localization.dart';
-import 'package:bardu/widgets/dames.dart';
-import 'package:bardu/widgets/domino.dart';
-import 'package:bardu/widgets/plis.dart';
+import 'package:barbu/i18n/intl_localization.dart';
+import 'package:barbu/widgets/dames.dart';
+import 'package:barbu/widgets/domino.dart';
+import 'package:barbu/widgets/plis.dart';
 import 'package:flutter/material.dart';
 
 import 'widgets/barbu.dart';

@@ -1,4 +1,4 @@
-import 'package:bardu/i18n/intl_localization.dart';
+import 'package:barbu/i18n/intl_localization.dart';
 import 'package:flutter/material.dart';
 
 

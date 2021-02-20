@@ -1,5 +1,5 @@
-import 'package:bardu/i18n/intl_localization.dart';
-import 'package:bardu/widgets/count.dart';
+import 'package:barbu/i18n/intl_localization.dart';
+import 'package:barbu/widgets/count.dart';
 import 'package:flutter/material.dart';
 
 
