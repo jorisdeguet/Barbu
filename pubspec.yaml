@@ -29,4 +29,5 @@ flutter:
 flutter_icons:
   android: "launcher_icon"
   ios: true
+  image_path_ios: "assets/barbu-ios.png"
   image_path: "assets/barbu.png"
