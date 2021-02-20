@@ -1,6 +1,6 @@
-# bardu
+# Barbu
 
-A new Flutter project.
+A new Flutter project.  Application to count points for the card game "Barbu" (bearded man): see https://en.wikipedia.org/wiki/Barbu_(card_game)
 
 ## Getting Started
 
