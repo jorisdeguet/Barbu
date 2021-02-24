@@ -1,7 +1,7 @@
 import 'package:barbu/i18n/intl_localization.dart';
-import 'package:barbu/widgets/dames.dart';
 import 'package:barbu/widgets/domino.dart';
-import 'package:barbu/widgets/plis.dart';
+import 'package:barbu/widgets/queens.dart';
+import 'package:barbu/widgets/tricks-hearts.dart';
 import 'package:flutter/material.dart';
 
 import 'widgets/barbu.dart';
@@ -123,12 +123,13 @@ class _GameScreenState extends State<GameScreen> {
     if (_type == 'BARBU')
       w = Barbu(players: widget.players,onSave: _update);
     if (_type == 'NO_LADIES')
-      w = Dames(players: widget.players,onSave: _update);
+      w = Queens(players: widget.players,onSave: _update);
     if (_type == 'NO_HEARTS')
-      w = PlisCoeurs(title: 'NO_HEARTS', maxItems: 8, itemValue: 5,
+      w = TricksAndHearts(title: 'NO_HEARTS',
+          maxItems: 8, itemValue: 5,
           players: widget.players,onSave: _update);
     if (_type == 'NO_PLIS')
-      w = PlisCoeurs(title: 'NO_PLIS',
+      w = TricksAndHearts(title: 'NO_PLIS',
           maxItems: widget.players.length == 3 ? 10 :
             widget.players.length == 4 ? 8 : 6,
           itemValue: widget.players.length == 3 ? 4 :

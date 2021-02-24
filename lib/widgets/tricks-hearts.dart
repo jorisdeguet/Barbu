@@ -3,14 +3,14 @@ import 'package:barbu/widgets/count.dart';
 import 'package:flutter/material.dart';
 
 
-class PlisCoeurs extends StatefulWidget {
+class TricksAndHearts extends StatefulWidget {
   final List<String> players;
   final Function(Map<String,int>) onSave;
   final String title;
   final int maxItems;
   final int itemValue;
 
-  PlisCoeurs({
+  TricksAndHearts({
     Key key,
     @required this.title,
     @required this.players,
@@ -20,10 +20,10 @@ class PlisCoeurs extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _PlisCoeursState createState() => _PlisCoeursState();
+  _TricksAndHeartsState createState() => _TricksAndHeartsState();
 }
 
-class _PlisCoeursState extends State<PlisCoeurs> {
+class _TricksAndHeartsState extends State<TricksAndHearts> {
 
   String loser = null;
 

@@ -16,9 +16,9 @@ class _CounterViewState extends State<CounterView> {
   
   @override
   void initState() {
+    super.initState();
     _currentCount = widget.initNumber ?? 1;
     _counterCallback = widget.counterCallback ?? (int number) {};
-    super.initState();
   }
 
   @override
@@ -28,11 +28,11 @@ class _CounterViewState extends State<CounterView> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          _decButton(() => _dicrement()),
+          _dec(() => _dicrement()),
           SizedBox(width: 13,),
           Text(_currentCount.toString(), style: TextStyle(fontSize: 20),),
           SizedBox(width: 10,),
-          _incButton(() => _increment()),
+          _inc(() => _increment()),
         ],
       ),
     );
@@ -56,21 +56,21 @@ class _CounterViewState extends State<CounterView> {
     });
   }
 
-  Widget _decButton(Function onPressed) {
+  Widget _dec(Function onPressed) {
     return InkWell(
       onTap: onPressed,
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Text("-", style: TextStyle(fontSize: 20),),
+        padding: const EdgeInsets.fromLTRB(15,0,15,0),
+        child: Text("-", style: TextStyle(fontSize: 30),),
       ),
     );
   }
-  Widget _incButton(Function onPressed) {
+  Widget _inc(Function onPressed) {
     return InkWell(
       onTap: onPressed,
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Text("+", style: TextStyle(fontSize: 20),),
+        padding: const EdgeInsets.fromLTRB(15,0,15,0),
+        child: Text("+", style: TextStyle(fontSize: 30),),
       ),
     );
   }

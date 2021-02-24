@@ -3,9 +3,7 @@ import 'package:barbu/i18n/intl_localization.dart';
 import 'package:flutter/material.dart';
 
 class PlayersScreen extends StatefulWidget {
-  PlayersScreen({Key key, this.title}) : super(key: key);
-
-  final String title;
+  PlayersScreen({Key key}) : super(key: key);
 
   @override
   _PlayersScreenState createState() => _PlayersScreenState();

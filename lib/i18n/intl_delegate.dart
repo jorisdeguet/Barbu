@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 
 import 'intl_localization.dart';
 
-class SeedyLocalizationsDelegate extends LocalizationsDelegate<Locs> {
-  const SeedyLocalizationsDelegate();
+class BarbuLocalizationsDelegate extends LocalizationsDelegate<Locs> {
+  const BarbuLocalizationsDelegate();
 
   @override
   bool isSupported(Locale locale) => ['fr', 'en'].contains(locale.languageCode);
@@ -21,5 +21,5 @@ class SeedyLocalizationsDelegate extends LocalizationsDelegate<Locs> {
   }
 
   @override
-  bool shouldReload(SeedyLocalizationsDelegate old) => false;
+  bool shouldReload(BarbuLocalizationsDelegate old) => false;
 }

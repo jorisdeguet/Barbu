@@ -2,21 +2,21 @@ import 'package:barbu/i18n/intl_localization.dart';
 import 'package:flutter/material.dart';
 
 
-class Dames extends StatefulWidget {
+class Queens extends StatefulWidget {
   final List<String> players;
   final Function(Map<String,int>) onSave;
 
-  Dames({
+  Queens({
     Key key,
     @required this.players,
     @required this.onSave
   }) : super(key: key);
 
   @override
-  _DamesState createState() => _DamesState();
+  _QueensState createState() => _QueensState();
 }
 
-class _DamesState extends State<Dames> {
+class _QueensState extends State<Queens> {
 
   String loser = null;
 
