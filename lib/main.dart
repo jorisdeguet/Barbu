@@ -4,6 +4,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter/material.dart';
 
 // TODO https://www.youtube.com/watch?v=futE-2pAE30
+// TODO cleanup code variable = english
 
 void main() {
   runApp(MyApp());

@@ -25,12 +25,20 @@ class _BarbuState extends State<Barbu> {
 
     return Column(
       children: [
-        Center(
-          child: Padding(
-            padding: const EdgeInsets.all(18.0),
-            child: Text(Locs.of(context).trans('BARBU')),
-          ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(18.0),
+              child: Text(Locs.of(context).trans('BARBU')),
+            ),
+            SizedBox(
+              height: 50,
+              child: Image.asset('assets/barbu.png'),
+            ),
+          ],
         ),
+
         Padding(
           padding: EdgeInsets.all(10.0),
           child: loser != null ?
