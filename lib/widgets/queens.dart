@@ -47,22 +47,29 @@ class _QueensState extends State<Queens> {
             children: widget.players.map(
                 (player) {
                   return Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Expanded(child: Text(player), flex: 1,),
+                      Expanded(child: Text(player), ),
                       Expanded(
                         flex:4,
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: colors.map(
                                     (color) => Padding(
-                                  padding: const EdgeInsets.all(1.0),
+                                  padding: const EdgeInsets.fromLTRB(0,5,0,5),
                                   child: Ink(
                                     decoration: ShapeDecoration(
-                                      color: isTaken(color, player)? Colors.transparent : Colors.indigo,
+                                      color: isTaken(color, player)? Colors.transparent : Color.fromRGBO(250, 250, 250, 0.9),
                                       shape: CircleBorder(),
                                     ),
                                     child: IconButton(
-                                      icon: Text(color),
+                                      icon: Text(
+                                        color,
+                                        style: TextStyle(
+                                            color: colorFor(color, isTaken(color, player)),
+                                            fontSize: 25,
+                                        ),
+                                      ),
                                       onPressed: isTaken(color, player) ? null : () {
                                         map[player].add(color);
                                         setState(() {});
@@ -107,5 +114,12 @@ class _QueensState extends State<Queens> {
       toSend.putIfAbsent(player, () => score);
     }
     widget.onSave(toSend);
+  }
+
+  colorFor(String color, bool isTaken) {
+    if (isTaken) return Colors.white30;
+    if (color == "♠" ) return Colors.black;
+    if (color == "♣") return Colors.black;
+    return Colors.redAccent;
   }
 }
