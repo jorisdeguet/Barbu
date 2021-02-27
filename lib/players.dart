@@ -51,20 +51,35 @@ class _PlayersScreenState extends State<PlayersScreen> {
                 Locs.of(context).trans("ADD_PLAYERS"),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(18.0),
-              child: TextField(
-                textInputAction: TextInputAction.done,
-                focusNode: _focusNode,
-                onSubmitted: (s)  {
-                  _addPlayer(s);
-                },
-                controller: _playerController,
-                decoration: InputDecoration(
-                  border: const OutlineInputBorder(),
-                  hintText: Locs.of(context).trans("TYPE_PLAYER_NAME"),
+            Row(
+              children: [
+                Expanded(
+                  flex:1,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextField(
+                      textInputAction: TextInputAction.done,
+                      focusNode: _focusNode,
+                      onSubmitted: (s)  {
+                        _addPlayer(s);
+                      },
+                      controller: _playerController,
+
+                      decoration: InputDecoration(
+                        suffixIcon: IconButton(
+                          icon: Text("+"),
+                          color: Colors.blue,
+                          onPressed: () {
+                            _addPlayer(_playerController.value.text);
+                          },
+                        ),
+                        border: const OutlineInputBorder(),
+                        hintText: Locs.of(context).trans("TYPE_PLAYER_NAME"),
+                      ),
+                    ),
+                  ),
                 ),
-              ),
+              ],
             ),
             SizedBox(
               height: 10,
@@ -89,17 +104,10 @@ class _PlayersScreenState extends State<PlayersScreen> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        mini: true,
+      floatingActionButton: _players.length < 3 ?
+      Container() :
+      FloatingActionButton(
         onPressed: () {
-          if (_players.length < 3) {
-            ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                    content: Text(Locs.of(context).trans("ERROR_NOT_ENOUGH"))
-                )
-            );
-            return;
-          }
           if (_players.length != 4) {
             _show2CardsDialog();
           } else {
@@ -112,7 +120,10 @@ class _PlayersScreenState extends State<PlayersScreen> {
           }
           // Add your onPressed code here!
         },
-        child: Icon(Icons.arrow_right),
+        child: SizedBox(
+          height: 45,
+          child: Image.asset('assets/barbu.png'),
+        ),
       ),
     );
   }
@@ -163,7 +174,7 @@ class _PlayersScreenState extends State<PlayersScreen> {
       barrierDismissible: true, // user must tap button!
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Ouch'),
+          title: Text(Locs.of(context).trans("DIALOG_ALERT")),
           content: SingleChildScrollView(
             child: ListBody(
               children: <Widget>[

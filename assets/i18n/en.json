@@ -4,13 +4,14 @@
   "ADD_PLAYERS" : "Add players (between 3 and 5)",
   "TYPE_PLAYER_NAME" : "Enter player's name",
 
-  "ERROR_NOT_ENOUGH" : "Noot enough players",
+  "ERROR_NOT_ENOUGH" : "Not enough players",
   "ERROR_TOO_MANY" : "Too many players",
 
   "ERROR_EMPTY" : "Enter player's name",
   "ERROR_TOO_LONG" : "Name is too long",
   "ERROR_EXISTING" : "Name is already used",
 
+  "DIALOG_ALERT" : "Before you play",
   "DIALOG_2CARDS" : "Discard the 7th of ♠ and ♣ so you end up with 30 cards",
 
   "GAME_ON" : "Playing",

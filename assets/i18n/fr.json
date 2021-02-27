@@ -11,6 +11,7 @@
   "ERROR_TOO_LONG" : "Ce nom est trop long",
   "ERROR_EXISTING" : "Ce nom est déjà là",
 
+  "DIALOG_ALERT" : "Avant de jouer",
   "DIALOG_2CARDS" : "Il faut retirer le 7 de ♠ et le 7 de ♣ pour avoir un total de 30 cartes.",
 
   "GAME_ON" : "En jeu",
